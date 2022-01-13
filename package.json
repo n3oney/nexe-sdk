@@ -1,12 +1,26 @@
 {
   "name": "@n3oney/nexe-sdk",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Private SDK for Nexe bots",
+  "main": "dist/nexe-sdk.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Michał Minarowski <neoney@pm.me>",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "prisma": "^3.8.0",
+    "typescript": "^4.5.4"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n3oney/nexe-sdk.git"
+  }
 }
