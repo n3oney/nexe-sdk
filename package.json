@@ -1,11 +1,13 @@
 {
   "name": "@n3oney/nexe-sdk",
-  "version": "0.1.0",
+  "version": "6.0.0",
   "description": "Private SDK for Nexe bots",
   "main": "dist/nexe-sdk.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build_prisma": "prisma generate",
+    "build_ts": "tsc",
+    "build": "npm run build_prisma && npm run build_ts",
     "prepublishOnly": "npm run build"
   },
   "author": "Michał Minarowski <neoney@pm.me>",
@@ -22,5 +24,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/n3oney/nexe-sdk.git"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.8.1"
   }
 }

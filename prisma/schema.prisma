@@ -1,11 +1,121 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
+  output   = "../dist/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model lastChance {
+  member    String   @unique(map: "last_change_member_uindex")
+  endDate   DateTime @default(dbgenerated("(CURRENT_TIMESTAMP + '3 mons'::interval)")) @map("end_date") @db.Timestamptz(6)
+  messageId String?  @unique(map: "last_chance_message_id_uindex") @map("message_id")
+
+  @@map("last_chance")
+}
+
+model member {
+  id             String @id(map: "member_pk")
+  xp             Int    @default(0)
+  level          Int    @default(0)
+  coins          Float  @default(0) @db.Real
+  coins1         Float  @default(0) @db.Real
+  coins2         Float  @default(0) @db.Real
+  sent_messages2 Int    @default(0)
+  coins3         Float  @default(0) @db.Real
+  sent_messages3 Int    @default(0)
+  coins4         Float  @default(0) @db.Real
+  sent_messages4 Int    @default(0)
+  sent_messages5 Int    @default(0)
+}
+
+model money {
+  member String
+  id     Int      @id(map: "money_pk") @default(autoincrement())
+  date   DateTime @default(now()) @db.Timestamptz(6)
+  value  Float    @db.Real
+  type   String
+  season Int      @default(6) @db.SmallInt
+}
+
+model mute {
+  id       String  @id(map: "sqlite_autoindex_mutes_1")
+  end_date Decimal @db.Decimal
+
+  @@map("mutes")
+}
+
+model guild {
+  id                    String  @id
+  successReaction       String  @default("✅") @map("success_reaction")
+  failureReaction       String  @default("❎") @map("failure_reaction")
+  prefix                String  @default("!")
+  currency              String  @default("<:ShibaCoin:599360155301314560>")
+  questionReaction      String  @default("❔") @map("question_reaction")
+  ordersChannel         String  @default("599355572600700928") @map("orders_channel")
+  acceptedOrdersChannel String  @default("672026710098837525") @map("accepted_orders_channel")
+  deniedOrdersChannel   String  @default("672026801362567178") @map("denied_orders_channel")
+  devPrefix             String  @default("?") @map("dev_prefix")
+  nitroBoosterRole      String? @map("nitro_booster_role")
+  vipRole               String? @map("vip_role")
+
+  @@map("settings")
+}
+
+model shop {
+  name         String
+  description  String
+  id           String  @id(map: "shop_pk")
+  price        Int     @default(0)
+  comment      String?
+  needsDetails Int     @default(0) @map("needs_details")
+  available    Boolean @default(false)
+}
+
+model stats {
+  id    String @id(map: "sqlite_autoindex_stats_1")
+  warns Int?   @default(0)
+  mutes Int?   @default(0)
+  bans  Int?   @default(0)
+}
+
+model unbanned {
+  id String @unique(map: "unbanned_id_uindex")
+}
+
+model warn {
+  reason   String?
+  memberId String   @map("member_id")
+  modId    String   @map("mod_id")
+  points   Decimal  @default(50) @db.Decimal
+  date     DateTime @default(now()) @db.Timestamptz(6)
+  id       Int      @id @default(autoincrement())
+
+  @@map("warn2")
+}
+
+model item {
+  id    Int      @id(map: "item_pk") @default(autoincrement())
+  owner String
+  item  String
+  info  itemInfo @relation(fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "item_item_info_item_fk")
+  offer offer?
+}
+
+model itemInfo {
+  item        String @id(map: "item_info_pk")
+  name        String
+  description String
+  items       item[]
+
+  @@map("item_info")
+}
+
+model offer {
+  id     Int   @id(map: "offer_pk") @default(autoincrement())
+  itemId Int   @unique(map: "offer_item_uindex") @map("item")
+  price  Float @db.Real
+  item   item  @relation(fields: [itemId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "offer_item_id_fk")
 }
