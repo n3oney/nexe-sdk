@@ -1,1 +1,0 @@
-export * as Prisma from '../dist/prisma';

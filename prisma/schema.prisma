@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../dist/prisma"
 }
 
 datasource db {
@@ -97,11 +96,12 @@ model warn {
 }
 
 model item {
-  id    Int      @id(map: "item_pk") @default(autoincrement())
-  owner String
-  item  String
-  info  itemInfo @relation(fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "item_item_info_item_fk")
-  offer offer?
+  id         Int         @id(map: "item_pk") @default(autoincrement())
+  owner      String
+  item       String
+  info       itemInfo    @relation(fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "item_item_info_item_fk")
+  chestDrops chestDrop[] @relation("chest_dropToitem")
+  offer      offer?
 }
 
 model itemInfo {
@@ -118,4 +118,14 @@ model offer {
   itemId Int   @unique(map: "offer_item_uindex") @map("item")
   price  Float @db.Real
   item   item  @relation(fields: [itemId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "offer_item_id_fk")
+}
+
+model chestDrop {
+  id     Int    @id(map: "chest_drop_pk") @default(autoincrement())
+  itemId Int    @map("item")
+  rate   Int    @default(0)
+  chest  String
+  item   item   @relation("chest_dropToitem", fields: [itemId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "chest_drop_item_id_fk")
+
+  @@map("chest_drop")
 }
