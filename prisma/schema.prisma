@@ -104,12 +104,13 @@ model item {
 }
 
 model itemInfo {
-  item         String      @id(map: "item_info_pk")
-  name         String
-  description  String
-  manualUsage Boolean     @default(true) @map("manual_usage")
-  chestDrops   chestDrop[] @relation("chest_dropToitem_info")
-  items        item[]
+  item          String      @id(map: "item_info_pk")
+  name          String
+  description   String
+  manualUsage   Boolean     @default(true) @map("manual_usage")
+  needsDetails Boolean     @default(false) @map("needs_details")
+  chestDrops    chestDrop[] @relation("chest_dropToitem_info")
+  items         item[]
 
   @@map("item_info")
 }
