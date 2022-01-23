@@ -1,6 +1,6 @@
 {
   "name": "@n3oney/nexe-sdk",
-  "version": "6.0.0-pre-1",
+  "version": "6.0.0-pre-5",
   "description": "Private SDK for Nexe bots",
   "main": "dist/nexe-sdk.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "url": "git+https://github.com/n3oney/nexe-sdk.git"
   },
   "dependencies": {
-    "@prisma/client": "^3.8.1"
+    "@prisma/client": "^3.8.1",
+    "discord.js": "^13.6.0"
   }
 }

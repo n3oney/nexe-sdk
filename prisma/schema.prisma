@@ -104,11 +104,12 @@ model item {
 }
 
 model itemInfo {
-  item        String      @id(map: "item_info_pk")
-  name        String
-  description String
-  chestDrops  chestDrop[] @relation("chest_dropToitem_info")
-  items       item[]
+  item         String      @id(map: "item_info_pk")
+  name         String
+  description  String
+  manualUsage Boolean     @default(true) @map("manual_usage")
+  chestDrops   chestDrop[] @relation("chest_dropToitem_info")
+  items        item[]
 
   @@map("item_info")
 }
@@ -125,7 +126,7 @@ model chestDrop {
   item     String
   rate     Int      @default(0)
   chest    String
-  itemInfo itemInfo @relation("chest_dropToitem_info", fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "chest_drop_item_info_item_fk")
+  itemInfo itemInfo @relation("chest_dropToitem_info", fields: [item], references: [item], onDelete: NoAction, map: "chest_drop_item_info_item_fk")
 
   @@map("chest_drop")
 }
