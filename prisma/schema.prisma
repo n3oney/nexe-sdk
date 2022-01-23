@@ -44,6 +44,7 @@ model guild {
   nitroBoosterRole      String? @map("nitro_booster_role")
   vipRole               String? @map("vip_role")
   chestsChannel         String  @default("934894818050576384") @map("chests_channel")
+  commandsChannel       String  @default("465225835042045953") @map("commands_channel")
 
   @@map("settings")
 }
