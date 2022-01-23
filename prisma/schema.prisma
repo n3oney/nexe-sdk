@@ -7,19 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model lastChance {
-  member    String   @unique(map: "last_change_member_uindex")
-  endDate   DateTime @default(dbgenerated("(CURRENT_TIMESTAMP + '3 mons'::interval)")) @map("end_date") @db.Timestamptz(6)
-  messageId String?  @unique(map: "last_chance_message_id_uindex") @map("message_id")
-
-  @@map("last_chance")
-}
-
 model member {
-  id             String @id(map: "member_pk")
-  xp             Int    @default(0)
-  level          Int    @default(0)
-  coins          Float  @default(0) @db.Real
+  id    String @id(map: "member_pk")
+  xp    Int    @default(0)
+  level Int    @default(0)
+  coins Float  @default(0) @db.Real
 }
 
 model money {
@@ -51,7 +43,7 @@ model guild {
   devPrefix             String  @default("?") @map("dev_prefix")
   nitroBoosterRole      String? @map("nitro_booster_role")
   vipRole               String? @map("vip_role")
-  chestsChannel        String  @default("934894818050576384") @map("chests_channel")
+  chestsChannel         String  @default("934894818050576384") @map("chests_channel")
 
   @@map("settings")
 }
@@ -71,10 +63,6 @@ model stats {
   warns Int?   @default(0)
   mutes Int?   @default(0)
   bans  Int?   @default(0)
-}
-
-model unbanned {
-  id String @unique(map: "unbanned_id_uindex")
 }
 
 model warn {
