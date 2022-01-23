@@ -20,14 +20,6 @@ model member {
   xp             Int    @default(0)
   level          Int    @default(0)
   coins          Float  @default(0) @db.Real
-  coins1         Float  @default(0) @db.Real
-  coins2         Float  @default(0) @db.Real
-  sent_messages2 Int    @default(0)
-  coins3         Float  @default(0) @db.Real
-  sent_messages3 Int    @default(0)
-  coins4         Float  @default(0) @db.Real
-  sent_messages4 Int    @default(0)
-  sent_messages5 Int    @default(0)
 }
 
 model money {
