@@ -93,6 +93,7 @@ model itemInfo {
   needsDetails Boolean     @default(false) @map("needs_details")
   chestDrops   chestDrop[] @relation("chest_dropToitem_info")
   items        item[]
+  level_drop   levelDrop[] @relation("item_infoTolevel_drop")
 
   @@map("item_info")
 }
@@ -112,4 +113,14 @@ model chestDrop {
   itemInfo itemInfo @relation("chest_dropToitem_info", fields: [item], references: [item], onDelete: NoAction, map: "chest_drop_item_info_item_fk")
 
   @@map("chest_drop")
+}
+
+model levelDrop {
+  id     Int      @id(map: "level_drop_pk") @default(autoincrement())
+  itemId String   @map("item")
+  level  Int
+  vip    Boolean  @default(false)
+  item   itemInfo @relation("item_infoTolevel_drop", fields: [itemId], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "level_drop_item_info_item_fk")
+
+  @@map("level_drop")
 }
