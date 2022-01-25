@@ -9,7 +9,7 @@ datasource db {
 
 model member {
   id    String @id(map: "member_pk")
-  xp    Int    @default(0)
+  xp    Float  @default(0) @db.Real
   level Int    @default(0)
   coins Float  @default(0) @db.Real
 }
