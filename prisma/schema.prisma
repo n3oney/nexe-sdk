@@ -116,11 +116,19 @@ model chestDrop {
 }
 
 model levelDrop {
-  id     Int      @id(map: "level_drop_pk") @default(autoincrement())
-  itemId String   @map("item")
-  level  Int
-  vip    Boolean  @default(false)
-  item   itemInfo @relation("item_infoTolevel_drop", fields: [itemId], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "level_drop_item_info_item_fk")
+  id        Int       @id(map: "level_drop_pk") @default(autoincrement())
+  itemId    String?   @map("item")
+  level     Int
+  vip       Boolean   @default(false)
+  coins     Float?    @db.Real
+  role      String?
+  itemCount Int?      @map("item_count")
+  item      itemInfo? @relation("item_infoTolevel_drop", fields: [itemId], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "level_drop_item_info_item_fk")
 
   @@map("level_drop")
+}
+
+model vip {
+  member String   @id(map: "vip_pk")
+  expiry DateTime @db.Timestamptz(6)
 }
