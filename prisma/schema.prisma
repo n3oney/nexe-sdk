@@ -78,11 +78,12 @@ model warn {
 }
 
 model item {
-  id    Int      @id(map: "item_pk") @default(autoincrement())
-  owner String
-  item  String
-  info  itemInfo @relation(fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "item_item_info_item_fk")
-  offer offer?
+  id     Int      @id(map: "item_pk") @default(autoincrement())
+  owner  String
+  item   String
+  active Boolean  @default(true)
+  info   itemInfo @relation(fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "item_item_info_item_fk")
+  offer  offer?
 }
 
 model itemInfo {
@@ -136,5 +137,6 @@ model vip {
 model xpBlock {
   member String   @id(map: "xp_block_pk")
   expiry DateTime @db.Timestamptz(6)
-	@@map("xp_block")
+
+  @@map("xp_block")
 }
