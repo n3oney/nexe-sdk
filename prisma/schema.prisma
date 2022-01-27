@@ -78,12 +78,12 @@ model warn {
 }
 
 model item {
-  id     Int      @id(map: "item_pk") @default(autoincrement())
-  owner  String
-  item   String
-  active Boolean  @default(true)
-  info   itemInfo @relation(fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "item_item_info_item_fk")
-  offer  offer?
+  id      Int      @id(map: "item_pk") @default(autoincrement())
+  owner   String
+  item    String
+  active  Boolean  @default(true)
+  info    itemInfo @relation(fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "item_item_info_item_fk")
+  auction auction?
 }
 
 model itemInfo {
@@ -97,13 +97,6 @@ model itemInfo {
   level_drop   levelDrop[] @relation("item_infoTolevel_drop")
 
   @@map("item_info")
-}
-
-model offer {
-  id     Int   @id(map: "offer_pk") @default(autoincrement())
-  itemId Int   @unique(map: "offer_item_uindex") @map("item")
-  price  Float @db.Real
-  item   item  @relation(fields: [itemId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "offer_item_id_fk")
 }
 
 model chestDrop {
@@ -139,4 +132,12 @@ model xpBlock {
   expiry DateTime @db.Timestamptz(6)
 
   @@map("xp_block")
+}
+
+model auction {
+  id        Int    @id(map: "offer_pk") @default(autoincrement())
+  itemId    Int    @unique(map: "offer_item_uindex") @map("item")
+  price     Float  @db.Real
+  messageId String @map("message_id")
+  item      item   @relation(fields: [itemId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "offer_item_id_fk")
 }
