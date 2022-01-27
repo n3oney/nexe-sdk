@@ -45,6 +45,8 @@ model guild {
   vipRole               String? @map("vip_role")
   chestsChannel         String  @default("934894818050576384") @map("chests_channel")
   commandsChannel       String  @default("465225835042045953") @map("commands_channel")
+  activeAuctionChannel  String  @default("936402510946648174") @map("active_auction_channel")
+  soldAuctionChannel    String  @default("936402538679402546") @map("sold_auction_channel")
 
   @@map("settings")
 }
