@@ -47,6 +47,7 @@ model guild {
   commandsChannel       String  @default("465225835042045953") @map("commands_channel")
   activeAuctionChannel  String  @default("936402510946648174") @map("active_auction_channel")
   soldAuctionChannel    String  @default("936402538679402546") @map("sold_auction_channel")
+  logsChannel           String  @default("674385697549058090") @map("logs_channel")
 
   @@map("settings")
 }
