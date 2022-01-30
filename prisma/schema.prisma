@@ -56,13 +56,13 @@ model guild {
 }
 
 model shop {
-  name         String
-  description  String
-  id           String  @id(map: "shop_pk")
-  price        Int     @default(0)
-  comment      String?
-  needsDetails Int     @default(0) @map("needs_details")
-  available    Boolean @default(false)
+  name        String
+  description String
+  id          String   @id(map: "shop_pk")
+  price       Int      @default(0)
+  comment     String?
+  available   Boolean  @default(false)
+  itemInfo    itemInfo @relation("item_infoToshop", fields: [id], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "shop_item_info_item_fk")
 }
 
 model stats {
@@ -101,6 +101,7 @@ model itemInfo {
   chestDrops   chestDrop[] @relation("chest_dropToitem_info")
   items        item[]
   level_drop   levelDrop[] @relation("item_infoTolevel_drop")
+  shop         shop?       @relation("item_infoToshop")
 
   @@map("item_info")
 }
