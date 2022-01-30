@@ -24,8 +24,8 @@ model money {
 }
 
 model mute {
-  id       String  @id(map: "sqlite_autoindex_mutes_1")
-  end_date Decimal @db.Decimal
+  id      String   @id(map: "sqlite_autoindex_mutes_1")
+  endDate DateTime @map("end_date") @db.Timestamptz(6)
 
   @@map("mutes")
 }
@@ -48,6 +48,7 @@ model guild {
   activeAuctionChannel  String  @default("936402510946648174") @map("active_auction_channel")
   soldAuctionChannel    String  @default("936402538679402546") @map("sold_auction_channel")
   logsChannel           String  @default("674385697549058090") @map("logs_channel")
+  muteRole              String  @default("584713555320766464") @map("mute_role")
 
   @@map("settings")
 }
