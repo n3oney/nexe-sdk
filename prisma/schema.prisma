@@ -50,6 +50,7 @@ model guild {
   logsChannel           String  @default("674385697549058090") @map("logs_channel")
   muteRole              String  @default("584713555320766464") @map("mute_role")
   errorsChannel         String  @default("937449246330851378") @map("errors_channel")
+  alertsChannel         String  @default("716992046467907677") @map("alerts_channel")
 
   @@map("settings")
 }
