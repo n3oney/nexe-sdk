@@ -130,8 +130,8 @@ model levelDrop {
 }
 
 model vip {
-  member String   @id(map: "vip_pk")
-  expiry DateTime @db.Timestamptz(6)
+  member String    @id(map: "vip_pk")
+  expiry DateTime? @db.Timestamptz(6)
 }
 
 model xpBlock {
