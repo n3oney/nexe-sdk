@@ -14,15 +14,6 @@ model member {
   coins Float  @default(0) @db.Real
 }
 
-model money {
-  member String
-  id     Int      @id(map: "money_pk") @default(autoincrement())
-  date   DateTime @default(now()) @db.Timestamptz(6)
-  value  Float    @db.Real
-  type   String
-  season Int      @default(6) @db.SmallInt
-}
-
 model mute {
   id      String   @id(map: "sqlite_autoindex_mutes_1")
   endDate DateTime @map("end_date") @db.Timestamptz(6)
@@ -119,10 +110,11 @@ model levelDrop {
   id        Int       @id(map: "level_drop_pk") @default(autoincrement())
   itemId    String?   @map("item")
   level     Int
-  vip       Boolean   @default(false)
+  vip       drop_vip  @default(no)
   coins     Float?    @db.Real
   role      String?
   itemCount Int?      @map("item_count")
+  remaining Int?
   item      itemInfo? @relation("item_infoTolevel_drop", fields: [itemId], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "level_drop_item_info_item_fk")
 
   @@map("level_drop")
@@ -146,4 +138,10 @@ model auction {
   price     Float  @db.Real
   messageId String @map("message_id")
   item      item   @relation(fields: [itemId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "offer_item_id_fk")
+}
+
+enum drop_vip {
+  yes
+  no
+  all
 }
