@@ -41,6 +41,7 @@ model guild {
   muteRole              String @default("584713555320766464") @map("mute_role")
   errorsChannel         String @default("937449246330851378") @map("errors_channel")
   alertsChannel         String @default("716992046467907677") @map("alerts_channel")
+  codesChannel          String @default("935125070039351296") @map("codes_channel")
 
   @@map("settings")
 }
@@ -138,6 +139,12 @@ model auction {
   price     Float  @db.Real
   messageId String @map("message_id")
   item      item   @relation(fields: [itemId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "offer_item_id_fk")
+}
+
+model codes {
+  code       String   @id(map: "codes_pk")
+  digitsSent Int      @default(0) @map("digits_sent")
+  lastSent   DateTime @default(now()) @map("last_sent") @db.Timestamptz(6)
 }
 
 enum drop_vip {
