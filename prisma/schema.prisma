@@ -142,9 +142,10 @@ model auction {
 }
 
 model codes {
-  code       String   @id(map: "codes_pk")
-  digitsSent Int      @default(0) @map("digits_sent")
-  lastSent   DateTime @default(now()) @map("last_sent") @db.Timestamptz(6)
+  code          String    @id(map: "codes_pk")
+  digitsSent    Int       @default(0) @map("digits_sent")
+  lastSent      DateTime? @map("last_sent") @db.Timestamptz(6)
+  generatedDate DateTime  @default(now()) @map("generated_date") @db.Timestamptz(6)
 }
 
 enum drop_vip {
