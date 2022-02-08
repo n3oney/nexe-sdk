@@ -8,10 +8,11 @@ datasource db {
 }
 
 model member {
-  id    String @id(map: "member_pk")
-  xp    Float  @default(0) @db.Real
-  level Int    @default(0)
-  coins Float  @default(0) @db.Real
+  id               String @id(map: "member_pk")
+  xp               Float  @default(0) @db.Real
+  level            Int    @default(0)
+  coins            Float  @default(0) @db.Real
+  preRefactorLevel Int?   @map("pre_refactor_level")
 }
 
 model mute {
