@@ -61,9 +61,9 @@ model shop {
 
 model stats {
   id    String @id(map: "sqlite_autoindex_stats_1")
-  warns Int?   @default(0)
-  mutes Int?   @default(0)
-  bans  Int?   @default(0)
+  warns Int    @default(0)
+  mutes Int    @default(0)
+  bans  Int    @default(0)
 }
 
 model warn {
