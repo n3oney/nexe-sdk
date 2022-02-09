@@ -44,6 +44,7 @@ model guild {
   alertsChannel         String @default("716992046467907677") @map("alerts_channel")
   codesChannel          String @default("935125070039351296") @map("codes_channel")
   fullCodesChannel      String @default("938875155965415515") @map("full_codes_channel")
+  modActionsChannel     String @default("941061402431483904") @map("mod_actions_channel")
 
   @@map("settings")
 }
