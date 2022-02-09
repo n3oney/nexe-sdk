@@ -149,6 +149,7 @@ model codes {
   digitsSent    Int      @default(0) @map("digits_sent")
   lastSent      DateTime @default(now()) @map("last_sent") @db.Timestamptz(6)
   generatedDate DateTime @default(now()) @map("generated_date") @db.Timestamptz(6)
+  nextDigitDate DateTime @map("next_digit_date") @db.Timestamptz(6)
 }
 
 enum drop_vip {
