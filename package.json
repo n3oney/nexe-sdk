@@ -1,6 +1,6 @@
 {
   "name": "@n3oney/nexe-sdk",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Private SDK for Nexe bots",
   "main": "dist/nexe-sdk.js",
   "scripts": {
