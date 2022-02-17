@@ -8,11 +8,12 @@ datasource db {
 }
 
 model member {
-  id               String @id(map: "member_pk")
-  xp               Float  @default(0) @db.Real
-  level            Int    @default(0)
-  coins            Float  @default(0) @db.Real
-  preRefactorLevel Int?   @map("pre_refactor_level")
+  id               String        @id(map: "member_pk")
+  xp               Float         @default(0) @db.Real
+  level            Int           @default(0)
+  coins            Float         @default(0) @db.Real
+  preRefactorLevel Int?          @map("pre_refactor_level")
+  activityLog      activityLog[]
 }
 
 model mute {
@@ -114,7 +115,7 @@ model levelDrop {
   id        Int       @id(map: "level_drop_pk") @default(autoincrement())
   itemId    String?   @map("item")
   level     Int
-  vip       drop_vip  @default(no)
+  vip       DropVip   @default(no)
   coins     Float?    @db.Real
   role      String?
   itemCount Int?      @map("item_count")
@@ -152,8 +153,39 @@ model codes {
   nextDigitDate DateTime @map("next_digit_date") @db.Timestamptz(6)
 }
 
-enum drop_vip {
+model activityLog {
+  id       Int          @id(map: "activity_log_pk") @default(autoincrement())
+  memberId String       @map("member")
+  date     DateTime     @default(now()) @db.Timestamptz(6)
+  type     ActivityType
+  member   member       @relation(fields: [memberId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "activity_log_member_id_fk")
+
+  @@map("activity_log")
+}
+
+enum DropVip {
   yes
   no
   all
+
+  @@map("drop_vip")
+}
+
+enum ActivityType {
+  text
+  voice
+  warn
+  mute
+  ban
+  alertResponse @map("alert_response")
+  clear
+  vipGive @map("vip_give")
+  transfer
+  unmute
+  coinsGive @map("coins_give")
+  itemGive @map("item_give")
+  delwarn
+  orderResponse @map("order_response")
+
+  @@map("activity_type")
 }
