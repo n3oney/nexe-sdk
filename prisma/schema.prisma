@@ -97,6 +97,7 @@ model itemInfo {
   items        item[]
   level_drop   levelDrop[] @relation("item_infoTolevel_drop")
   shop         shop?       @relation("item_infoToshop")
+  sellable     Boolean     @default(false)
 
   @@map("item_info")
 }
