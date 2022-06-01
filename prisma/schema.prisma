@@ -14,6 +14,7 @@ model member {
   coins            Float         @default(0) @db.Real
   preRefactorLevel Int?          @map("pre_refactor_level")
   activityLog      activityLog[]
+  boosts           boost[]
 }
 
 model mute {
@@ -85,6 +86,7 @@ model item {
   active  Boolean  @default(true)
   info    itemInfo @relation(fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "item_item_info_item_fk")
   auction auction?
+  boost   boost?
 }
 
 model itemInfo {
@@ -93,11 +95,11 @@ model itemInfo {
   description  String
   manualUsage  Boolean     @default(true) @map("manual_usage")
   needsDetails Boolean     @default(false) @map("needs_details")
+  sellable     Boolean     @default(false)
   chestDrops   chestDrop[] @relation("chest_dropToitem_info")
   items        item[]
   level_drop   levelDrop[] @relation("item_infoTolevel_drop")
   shop         shop?       @relation("item_infoToshop")
-  sellable     Boolean     @default(false)
 
   @@map("item_info")
 }
@@ -162,6 +164,15 @@ model activityLog {
   member   member       @relation(fields: [memberId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "activity_log_member_id_fk")
 
   @@map("activity_log")
+}
+
+model boost {
+  id         Int      @id(map: "boost_pk")
+  user       String
+  multiplier Float    @default(1) @db.Real
+  expiry     DateTime @db.Timestamptz(6)
+  item       item     @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "boost_item_id_fk")
+  member     member   @relation(fields: [user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "boost_member_id_fk")
 }
 
 enum DropVip {
