@@ -86,7 +86,6 @@ model item {
   active  Boolean  @default(true)
   info    itemInfo @relation(fields: [item], references: [item], onDelete: NoAction, onUpdate: NoAction, map: "item_item_info_item_fk")
   auction auction?
-  boost   boost?
 }
 
 model itemInfo {
@@ -171,7 +170,6 @@ model boost {
   user       String
   multiplier Float    @default(1) @db.Real
   expiry     DateTime @db.Timestamptz(6)
-  item       item     @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "boost_item_id_fk")
   member     member   @relation(fields: [user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "boost_member_id_fk")
 }
 
